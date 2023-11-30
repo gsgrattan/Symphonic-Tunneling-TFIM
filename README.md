@@ -5,29 +5,31 @@
 </p>
 
 <h3>main.ipynb: </h3>
+
+This contains driver code for the simulations of varying lattice x dimensions for the Transverse Field Ising Model. It  creates a quick rabi oscillation plot, and 
 <p>
+
     - Uses the joblib.Parallel() function to parallelize the simulations over each trajectory.
        NOTE: It is programmed all cores on the machine by default, can be changed by altering `num_parallel_jobs`
-    - The output datafiles are pickled pandas dataframe objects and should be stored in a 
-    directory with the path `Symphonic_Tunneling-TFIM/data/`
+
+    - By default we run 48 different plateau times to collect the Rabi Oscillation Data, this is arbitrary to the machine used to collect the data and the number of cores it had. this can be changed but it should remain relatively large to limit the impacts of aliasing.
+
+    - The output datafiles are pickled pandas dataframe objects and are stored by default in a 
+    directory with the path `Symphonic_Tunneling-TFIM/data/`, I have provided an empty `data/` directory for convenience.
 
 </p>
 
 <h3> `src/tfim_st.py` </h3>
-<p>
-contains the various functions that perform the simulation
+Contains the various functions that construct the circuit and run the simulations
 
-there are two main functions to note:
-    TFIM_evolve_2d_sampling(**param_dict)
+There are two main functions to note:
+<p>
+
+    - TFIM_evolve_2d_sampling(**param_dict)
         Samples `<ZZ>` only at the end of the plateau
-    TFIM_evolve_2d_continous_sampling(**param_dict)
+    - TFIM_evolve_2d_continous_sampling(**param_dict)
         Sample `<ZZ>` at every trotter step in the plateau
 </p>
 
 <h3>`src/helpers.py` </h3>
-<p>
-contains various functions for creating the data inputs to enabling parallel simulation and generating filenames for the data files
-</p>
-
-
-
+Contains various functions for creating the data inputs to enabling parallel simulation and generating filenames for the data files
