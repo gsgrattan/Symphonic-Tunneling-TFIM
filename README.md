@@ -43,10 +43,11 @@ There are two main functions to note:
 <p>
 
     - TFIM_evolve_2d_sampling(**param_dict)
-        Samples `<ZZ>` only at the end of the plateau
+        Samples `<ZZ>` at 40 evenly spaced times during the plateau
     - TFIM_evolve_2d_continous_sampling(**param_dict)
         Sample `<ZZ>` at every trotter step in the plateau
 </p>
 
 <h3>`src/helpers.py` </h3>
-Contains various functions for creating the data inputs to enabling parallel simulation and generating filenames for the data files
+Contains various functions for creating the data inputs to enabling parallel simulation and 
+generating filenames for the data files
