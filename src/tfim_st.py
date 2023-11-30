@@ -151,22 +151,18 @@ def TFIM_evolve_2d_sampling(**param_dict):
     graph = nx.convert_node_labels_to_integers(graph)
     problem_graph = graph.edges
     
-    
-    
-    
     psi = QuantumState(n)
     psi.set_zero_state() # initializes in zero
     
 
-
-    trotter_index = 0  #Trotter layer index
-    T = 0
-    Tseg = 0
     baseval = - 2*np.pi*dt # note - sign absorbed here
-    # ramp up evolution
 
     num_ramping_layers = ramptime // dt
-
+    
+    # ramp up transverse field and Symphonic drive
+    Tseg = 0
+    trotter_index = 0  #Trotter layer index
+    T = 0
     while(trotter_index < num_ramping_layers): 
         trotter_index+=1
         T = T + dt
@@ -184,7 +180,8 @@ def TFIM_evolve_2d_sampling(**param_dict):
 
     num_evolution_layers = plateau_time//dt
 
-    sample_trotter_steps = np.linspace(start = num_ramping_layers, stop = num_ramping_layers+num_evolution_layers, num=10, dtype = int) #set the sample timesteps
+    #get the timesteps to sample ZZ
+    sample_trotter_steps = np.linspace(start = num_ramping_layers, stop = num_ramping_layers+num_evolution_layers, num=40, dtype = int) #set the sample timesteps
 
     while(trotter_index< (num_evolution_layers+ num_ramping_layers)):
         trotter_index+=1
@@ -201,7 +198,8 @@ def TFIM_evolve_2d_sampling(**param_dict):
         if trotter_index in sample_trotter_steps:
 
             ZZvals[Tseg] = psi.sampling(num_samples)
-    
+       
+    #Ramp Down transverse Field and Symphonic Drive
     Tseg = 0
     while(trotter_index<(num_evolution_layers + 2*num_ramping_layers)):
         trotter_index+=1 
@@ -258,37 +256,43 @@ def TFIM_evolve_2d_continous_sampling(**param_dict):
     psi.set_zero_state() # initializes in zero
     
 
-    trotter_index = 0  #Trotter layer index
-    T = 0
-    Tseg = 0
+
+
     baseval = -2*np.pi*dt # note - sign absorbed here
-    # ramp up evolution
+
 
     num_ramping_layers = ramptime // dt
+    num_evolution_layers = plateau_time //dt
 
+    # ramp up transverse field and Symphonic drive
+    Tseg = 0
+    trotter_index = 0  #Trotter layer index
+    T = 0
     while(trotter_index < num_ramping_layers): 
         trotter_index+=1
         T = T + dt
         Tseg += dt
         ramping_value = np.sin(np.pi*Tseg/(2*ramptime)) # ramping profile
+
         exponent = ramping_value * kappa * baseval # factor of 2 was absorbed into my uniform TF layer
         ZZ_graph(n,problem_graph,baseval).update_quantum_state(psi) # Ising Hamiltonian
 
         uniform_TF_layer(n,exponent).update_quantum_state(psi) # apply transverse field
         uniform_AC_Y_layer(n,T,freq,alpha,baseval * ramping_value).update_quantum_state(psi) # VHF AC terms (note: ramped)
                 
-    # now main hold evolution
-    
+
+
+
+    # Plateau
     Tseg = 0
-
-    num_evolution_layers = plateau_time //dt
-
     while(trotter_index < (num_evolution_layers + num_ramping_layers)):
         trotter_index+=1
         T = T + dt
         Tseg += dt
+
         ramping_value = 1. # hold time
         exponent = ramping_value * kappa * baseval # factor of 2 was absorbed into my uniform TF layer
+
         ZZ_graph(n,problem_graph,baseval).update_quantum_state(psi) # Ising Hamiltonian
         uniform_TF_layer(n,exponent).update_quantum_state(psi) # apply transverse field
         uniform_AC_Y_layer(n,T,freq,alpha,baseval * ramping_value).update_quantum_state(psi) # VHF AC terms 
@@ -296,8 +300,9 @@ def TFIM_evolve_2d_continous_sampling(**param_dict):
         # do the ZZ measurement at each timestep and store it as a list
         # this is hard coded here to measure 0, L/2 but can be easily tweaked
        
-    
+    #Ramp Down transverse Field and Symphonic Drive
     Tseg = 0
+
     while(trotter_index < (num_evolution_layers + 2*num_ramping_layers)):
         trotter_index+=1 
         Tseg += dt
