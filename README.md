@@ -12,7 +12,7 @@ Here is a brief overview of the enviornment that last run this notebook
     scipy==1.11.4
     qulacs==0.6.2
     networkx==3.2.1
-    
+
 </p>
 See requirements.txt for a full list of dependencies
 
@@ -22,12 +22,16 @@ This contains driver code for the simulations of varying lattice x dimensions fo
 <p>
 
     - Uses the joblib.Parallel() function to parallelize the simulations over each trajectory.
-       NOTE: It is programmed all cores on the machine by default, can be changed by altering `num_parallel_jobs`
+       NOTE: It is programmed all cores on the machine by default, can be changed by altering 
+       `num_parallel_jobs`
 
-    - By default we run 48 different plateau times to collect the Rabi Oscillation Data, this is arbitrary to the machine used to collect the data and the number of cores it had. this can be changed but it should remain relatively large to limit the impacts of aliasing.
+    - By default we run 48 different plateau times to collect the Rabi Oscillation Data, this is 
+    arbitrary to the machine used to collect the data and the number of cores it had. this can be
+     changed but it should remain relatively large to limit the impacts of aliasing.
 
     - The output datafiles are pickled pandas dataframe objects and are stored by default in a 
-    directory with the path `Symphonic_Tunneling-TFIM/data/`, I have provided an empty `data/` directory for convenience.
+    directory with the path `Symphonic_Tunneling-TFIM/data/`, I have provided an empty `data/` 
+    directory for convenience.
 
 </p>
 
