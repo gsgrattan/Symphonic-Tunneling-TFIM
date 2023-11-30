@@ -1,8 +1,18 @@
 # Symphonic_Tunneling-TFIM
 <h3>Enviornment and dependencies:</h3>
+
+
+Here is a brief overview of the enviornment that last run this notebook
 <p>
-    See requirements.txt for the dependencies
+    Python version: 3.9.6 (default, May  7 2023, 23:32:44) 
+    [Clang 14.0.3 (clang-1403.0.22.14.1)]
+    numpy==1.26.2
+    pandas==2.1.3
+    scipy==1.11.4
+    qulacs==0.6.2
+    networkx==3.2.1
 </p>
+See requirements.txt for a full list of dependencies
 
 <h3>main.ipynb: </h3>
 
