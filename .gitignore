@@ -1,7 +1,10 @@
+
+data/ #data files and directory
 *.pkl #Pickle files
 
 *.swp 
 *.zip
+
 
 __pycache__/ #anything in the pycache
 *.py[cod]
