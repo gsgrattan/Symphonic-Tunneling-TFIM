@@ -1,5 +1,4 @@
-
-data/ #data files and directory
+#data files and directory
 *.pkl #Pickle files
 
 *.swp 
