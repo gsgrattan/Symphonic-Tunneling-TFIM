@@ -29,10 +29,11 @@ This contains driver code for the simulations of varying lattice x dimensions fo
     arbitrary to the machine used to collect the data and the number of cores it had. this can be
      changed but it should remain relatively large to limit the impacts of aliasing.
 
-    - The output datafiles are pickled pandas dataframe objects and are stored by default in a 
-    directory with the path `Symphonic_Tunneling-TFIM/data/`, I have provided an empty `data/` 
-    directory for convenience.
+    - I have commented out the section that saves the data, comment it back if you want
 
+    - When turned on, the output datafiles are pickled pandas dataframe objects and are stored by 
+     default in a directory with the path `Symphonic_Tunneling-TFIM/data/`, an empty directory `data` 
+     has been provided for convenience
 </p>
 
 <h3> `src/tfim_st.py` </h3>
