@@ -1,4 +1,7 @@
 # Symphonic_Tunneling-TFIM
+
+arXiv link to paper: https://arxiv.org/abs/2311.17814
+
 <h3>Enviornment and dependencies:</h3>
 
 
