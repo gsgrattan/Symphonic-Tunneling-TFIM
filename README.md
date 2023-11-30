@@ -8,7 +8,6 @@
 <p>
     - Uses the joblib.Parallel() function to parallelize the simulations over each trajectory.
        NOTE: It is programmed all cores on the machine by default, can be changed by altering `num_parallel_jobs`
-
     - The output datafiles are pickled pandas dataframe objects and should be stored in a 
     directory with the path `Symphonic_Tunneling-TFIM/data/`
 
